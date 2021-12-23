@@ -9,8 +9,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/:path*',
-        destination: 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadget/:path*',
+        source: '/gadgets/:path*',
+        destination: 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets/:path*',
       },
     ]
   },

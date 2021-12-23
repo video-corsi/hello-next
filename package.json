@@ -6,7 +6,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "json-server --watch server/db.json --port 8000",
     "export": "next build && next export"
   },
   "dependencies": {

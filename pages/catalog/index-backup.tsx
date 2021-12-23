@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Gadget } from '../../model/gadget';
 import Image from 'next/image'
 
-const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
+const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadget';
 
 export async function getStaticProps(context: NextPageContext) {
   try {
@@ -13,7 +13,7 @@ export async function getStaticProps(context: NextPageContext) {
         Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
       }
     })
-    // console.log(res.data)
+    console.log(res.data)
     return {
       props: { data: res.data.records},
       revalidate: 10
