@@ -1,0 +1,15 @@
+
+.centeredPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}

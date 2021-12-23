@@ -1,0 +1,15 @@
+.navbar {
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  color: #666;
+  font-weight: lighter;
+}
+
+.item {
+  margin: 10px 10px;
+  text-decoration: none;
+  color: #222;
+  font-size: 2rem;
+}
