@@ -4,14 +4,21 @@ import Link from 'next/link';
 import { Gadget } from '../../model/gadget';
 import Image from 'next/image'
 // const API = 'https://my-json-server.typicode.com/training-api/next-course-gadgets/gadgets';
-const API = 'http://localhost:8000/gadgets';
+// AIR TABLE
+const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadget';
 
+const APIKEY = 'keyKHjTkRRNuCSRng'
 export async function getStaticProps(context: NextPageContext) {
   try {
-    const res = await axios.get<Gadget[]>(API)
+    const res = await axios.get<any>(API, {
+      headers: {
+        Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
+      }
+    })
+    console.log(res.data)
     return {
-      props: { data: res.data },
-      revalidate: 6
+      props: { data: res.data.records},
+      revalidate: 10
     }
   } catch(err) {
     return {
@@ -30,6 +37,7 @@ interface IndexProps {
 
 
 function Index(props: IndexProps) {
+  console.log(props)
   return (
     <>
       <h1>Catalog</h1>
@@ -40,7 +48,7 @@ function Index(props: IndexProps) {
               <div key={item.id}>
                 <Link href={`/catalog/${item.id}`}>
                   <>
-                    <h1>{item.title}</h1>
+                    <h1>{item.fields.Name}</h1>
                     {/*<Image width={50} height={50} src={item.url} />*/}
                   </>
                 </Link>

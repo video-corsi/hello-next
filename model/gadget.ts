@@ -1,5 +1,6 @@
 export interface Gadget {
-  id: number;
-  title: string;
-  url: string;
+  id: string;
+  fields: {
+    Name: string
+  }
 }
