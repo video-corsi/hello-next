@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { NextPageContext } from 'next';
 import Link from 'next/link';
-import { Gadget } from '../../model/gadget';
+import { Gadget, Gadgets } from '../../model/gadget';
 import Image from 'next/image'
 
 const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
 
 export async function getStaticProps(context: NextPageContext) {
   try {
-    const res = await axios.get<any>(API, {
+    const res = await axios.get<Gadgets>(API, {
       headers: {
         Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
       }
@@ -16,26 +16,22 @@ export async function getStaticProps(context: NextPageContext) {
     // console.log(res.data)
     return {
       props: { data: res.data.records},
-      revalidate: 10
     }
-  } catch(err) {
+  }
+  catch(err) {
     return {
       notFound: true,
       // revalidate: 60 // Incremental Static Regeneration
       // props: { data: null, error: err.status}
     }
   }
-
 }
-
 
 interface IndexProps {
   data: Gadget[]
 }
 
-
 function Index(props: IndexProps) {
-  console.log(props)
   return (
     <>
       <h1>Catalog</h1>
@@ -47,7 +43,6 @@ function Index(props: IndexProps) {
                 <Link href={`/catalog/${item.id}`}>
                   <>
                     <h1>{item.fields.Name}</h1>
-                    {/*<Image width={50} height={50} src={item.url} />*/}
                   </>
                 </Link>
               </div>

@@ -6,12 +6,5 @@ module.exports = {
     loader: 'akamai',
     path: '',
   },
-  async rewrites() {
-    return [
-      {
-        source: '/gadgets/:path*',
-        destination: 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets/:path*',
-      },
-    ]
-  },
+
 }
