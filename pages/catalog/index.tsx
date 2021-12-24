@@ -3,9 +3,8 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Gadget, Gadgets } from '../../model/gadget';
 
-const API = 'https://api.airtable.com/v0/XappZFj1H7Cb1IiG4G/gadgets';
+const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
 
-//export async function getStaticProps(context: NextPageContext) {
 export const getStaticProps: GetStaticProps = async (context) => {
 
     try {
@@ -24,8 +23,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return {
       notFound: true,
       revalidate: 10 // Incremental Static Regeneration
-      // props: { data: null, error: err.status}
-      // redirect: { destination: '/' }
     }
   }
 }
