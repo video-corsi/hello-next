@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { Gadget, Gadgets } from '../../model/gadget';
 
 const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
 
 export const getStaticProps: GetStaticProps = async (context) => {
-
-    try {
+  try {
     const res = await axios.get<Gadgets>(API, {
       headers: {
         Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
@@ -20,10 +19,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   }
   catch(err: any) {
-    console.log(err)
     return {
       notFound: true,
-
     }
   }
 }
@@ -42,9 +39,7 @@ function Index(props: IndexProps) {
             return (
               <div key={item.id}>
                 <Link href={`/catalog/${item.id}`}>
-                  <>
-                    <h1>{item.fields.Name}</h1>
-                  </>
+                  <h1>{item.fields.Name}</h1>
                 </Link>
               </div>
             )
