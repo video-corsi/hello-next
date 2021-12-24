@@ -16,13 +16,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // console.log(res.data)
     return {
       props: { data: res.data.records},
+      revalidate: 10 // Incremental Static Regeneration
     }
   }
   catch(err: any) {
     console.log(err)
     return {
       notFound: true,
-      revalidate: 10 // Incremental Static Regeneration
+
     }
   }
 }
