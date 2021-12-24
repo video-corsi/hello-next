@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Gadget, Gadgets } from '../../model/gadget';
 import { GetStaticPropsContext } from 'next';
+import Image from 'next/image';
 
 const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
 
@@ -69,6 +70,13 @@ function CatalogPage(props: CatalogPageProps) {
   return (
     <>
       <h1>Item Details { props.gadget.fields.Name }</h1>
+      <p>{props.gadget.fields.Description}</p>
+      <Image
+        src={props.gadget.fields.Image[0].thumbnails.large.url}
+        width={props.gadget.fields.Image[0].thumbnails.large.width/2}
+        height={props.gadget.fields.Image[0].thumbnails.large.height/2}
+        className="img-thumbnail"
+      />
     </>
   )
 }
