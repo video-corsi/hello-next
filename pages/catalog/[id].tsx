@@ -1,23 +1,21 @@
 import axios from 'axios';
 import { Gadget, Gadgets } from '../../model/gadget';
-import { GetStaticPropsContext } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 
 const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
 
-export async function getStaticPaths() {
+export async function getServerSideProps(context: GetServerSidePropsContext<{ id: string }>) {
+  const id = context.params?.id
+
   try {
-    const res = await axios.get<Gadgets>(API, {
+    const res = await axios.get<Gadgets>(`${API}/${id}`, {
       headers: {
         Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
       }
     })
-    // console.log(res.data)
-    const paths = res.data.records.map(g => ({ params: {id: g.id } }))
-    console.log(paths)
     return {
-      paths,
-      fallback: false
+      props: { gadget: res.data},
     }
   }
   catch(err: any) {
@@ -25,42 +23,8 @@ export async function getStaticPaths() {
       notFound: true,
     }
   }
-  /*
-  // Manual Output
-  return {
-    paths: [
-      { params: { id: 'recm4TS985qbIdDvd' } },
-      { params: { id: 'recugbr9ifn0W0QTi' } },
-      { params: { id: 'recyGyOoWoKe8FbVo' } }
-    ],
-    fallback: true, /!* false, or 'blocking'*!/
-  };*/
 }
 
-
-export async function getStaticProps(context: GetStaticPropsContext<{ id: string}>) {
-
-  const id = context.params?.id;
-
-  try {
-    const res = await axios.get<Gadget>(`https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets/${id}`, {
-      headers: {
-          Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
-        }
-      }
-    );
-    return {
-      props: { gadget: res.data },
-    }
-  }
-  catch(err) {
-    return {
-      notFound: true, // NOTE: not needed for fallback: false
-      revalidate: 60 // Incremental Static Regeneration
-    }
-  }
-
-}
 
 interface CatalogPageProps {
   gadget: Gadget;

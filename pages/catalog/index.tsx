@@ -1,21 +1,20 @@
 import axios from 'axios';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps } from 'next';
+
 import Link from 'next/link';
 import { Gadget, Gadgets } from '../../model/gadget';
 
 const API = 'https://api.airtable.com/v0/appZFj1H7Cb1IiG4G/gadgets';
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const res = await axios.get<Gadgets>(API, {
       headers: {
         Authorization: 'Bearer ' + process.env.AIRTABLE_API_KEY
       }
     })
-    // console.log(res.data)
     return {
       props: { data: res.data.records},
-      revalidate: 10 // Incremental Static Regeneration
     }
   }
   catch(err: any) {
